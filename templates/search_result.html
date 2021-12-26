@@ -1,10 +1,50 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "template.html" %}
 
-</body>
-</html>
+{% block head %}{{ super() }}{% endblock %}
+
+{% block main_title %}Система вычсистем{% endblock %}
+
+{% block sub_title %} - поиск{% endblock %}
+
+{% block header %}{% include "meta/header.html" %}{% endblock %}
+
+{% block body %}
+<div class="container mpage">
+
+    <div class="row pb-1">
+        <a class="col-2 btn text-dark btn border-dark" href="{{url_for('system.search')}}">Назад</a>
+    </div>
+    <hr/>
+    {%if results|length == 0%}
+    <div class="row pb-2">
+        <h2 class="col-10 text-center">Ничего не найдено!</h2>
+    </div>
+    {%else%}
+    <div class="row pb-2">
+        <h2 class="col-10 text-center">Результат</h2>
+    </div>
+    <div class="row pb-1 pt-1">
+        <div class="col-2 h4 text-center">№</div>
+        <div class="col-3 h4 text-center">Название документа</div>
+        <div class="col-3 h4 text-center">Текст</div>
+    </div>
+
+    {%for result in results%}
+    <div class="row bs-aq border-bottom border-top border-dark pt-2 pb-2">
+        <div class="col-2 text-center text-dark">
+            {{loop.index}}
+        </div>
+        <div class="col-3 text-center">
+            <a href="{{url_for('system.index', short_link=result['link'] )}}">{{result['name']}}</a>
+        </div>
+        <div class="col-3">
+            <div class="text-dark">{{result['text']|safe}}</div>
+        </div>
+    </div>
+    {%endfor%}
+
+    {%endif%}
+
+</div>
+{% endblock %}
+{% block footer %}{% include "meta/footer.html" %}{% endblock %}

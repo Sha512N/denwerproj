@@ -1,10 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "template.html" %}
 
-</body>
-</html>
+{% block head %}{{ super() }}{% endblock %}
+
+{% block main_title %}Система вычсистем{% endblock %}
+
+{% block sub_title %} - {{name}}{% endblock %}
+
+{% block header %}{% include "meta/header.html" %}{% endblock %}
+
+{% block body %}
+<div class="container mpage">
+    <h2 class="text-center mb-5">Поиск</h2>
+            <form class="row justify-content-center g-3" method="POST" action="{{url_for('system.search')}}">
+                {{ sicForm.csrf_token }}
+                <div class="col-auto">
+                    {{ sicForm.word.label(class_="visually-hidden") }} {{ sicForm.word(class_="form-control") }}
+                </div>
+                <div class="col-auto">
+                {{sicForm.search(class_="btn border-dark btn-aq")}}
+                </div>
+            </form>
+</div>
+{% endblock %}
+{% block footer %}{% include "meta/footer.html" %}{% endblock %}

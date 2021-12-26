@@ -5,6 +5,7 @@ from db.mapper import POSTGRE_SQL
 
 def create_app():
     application = Flask(__name__)
+    application.config['SECRET_KEY'] = 'secret-key-goes-here'
     from index.index_blueprint import index_blueprint
     application.register_blueprint(index_blueprint)
     from system.system_blueprint import system_blueprint
