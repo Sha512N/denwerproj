@@ -1,0 +1,26 @@
+{% extends "template.html" %}
+
+{% block meta %}{% include "meta/meta.html" %}{% endblock %}
+
+{% block head %}{% include "meta/head.html" %}{% endblock %}
+
+{% block main_title %}Вычислительные системы{% endblock %}
+
+{% block sub_title %} - страница не найдена{% endblock %}
+
+{% block header %}{% include "meta/header.html" %}{% endblock %}
+
+{% block body %}
+<div class="container">
+        <div class="tab-content" id="login">
+            <div class="container">
+                Страница, которую вы искали, не существует :(
+            </div>
+            <h3>
+                <a href="{{url_for('index.index')}}">Вернуться на главную</a>
+            </h3>
+    </div>
+</div>
+{% endblock %}
+
+{% block footer %}{% include "meta/footer.html" %}{% endblock %}

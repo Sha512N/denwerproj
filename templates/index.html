@@ -1,0 +1,26 @@
+{% extends "template.html" %}
+
+{% block head %}{{ super() }}{% endblock %}
+
+{% block main_title %}Система вычсистем{% endblock %}
+
+{% block sub_title %} - Главная страница{% endblock %}
+
+{% block header %}{% include "meta/header.html" %}{% endblock %}
+
+{% block body %}
+<div class="container mpage">
+    <ul>
+    {% for node in tree_data['nodes'] %}
+    {% if node.indent %}
+      <ul>
+    {% elif node.outdent%}
+      </ul>
+    {% elif node.link%}
+      <li><a href="{{url_for('system.index', short_link=node.link)}}">{{node.name}}</a></li>
+    {% endif %}
+    {% endfor %}
+    </ul>
+</div>
+{% endblock %}
+{% block footer %}{% include "meta/footer.html" %}{% endblock %}

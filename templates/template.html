@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+    <title>{% block main_title %}{%endblock%}{% block sub_title %}{% endblock %}</title>
+    <style>
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+        .container {
+            width: 100%;
+        }
+    </style>
+    <script src="https://kit.fontawesome.com/f397e75eb1.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="container">
+    {% block header %}{% endblock %}
+    <main class="flex-shrink-0">
+        {% block body %}{% endblock %}
+    </main>
+    {% block footer %}{% endblock %}
+    <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+</div>
+</body>
+</html>

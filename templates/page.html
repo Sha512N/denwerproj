@@ -1,0 +1,37 @@
+{% extends "template.html" %}
+
+{% block head %}{{ super() }}{% endblock %}
+
+{% block main_title %}Система вычсистем{% endblock %}
+
+{% block sub_title %} - {{name}}{% endblock %}
+
+{% block header %}{% include "meta/header.html" %}{% endblock %}
+
+{% block body %}
+<div class="container mpage">
+    {%if parent is not none%}
+    <div class="row  mb-1">
+        <a class="col-3 col-xs-12 col-sm-5 me-1 btn btn-aq border-dark" href="{{url_for('system.index', short_link=parent['link'])}}">К родительской странице: {{parent['name']}}</a>
+    </div>
+    <br/>
+    {%endif%}
+    <div class="row">
+        <h4>{{name}}</h4>
+    </div>
+    <br/>
+    <div class="row">
+        {{text|safe}}
+    </div>
+    {%if children|length != 0%}
+    <br/>
+    <div class="row mb-1">
+    {%for child in children%}
+        <a class="col-3 col-xs-12 col-sm-3 me-1 btn border-dark" style="margin:5px;" href="{{url_for('system.index', short_link=child['link'])}}">{{child['name']}}</a>
+    {%endfor%}
+    </div>
+    <br/>
+    {%endif%}
+</div>
+{% endblock %}
+{% block footer %}{% include "meta/footer.html" %}{% endblock %}

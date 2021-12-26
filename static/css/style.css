@@ -1,0 +1,114 @@
+@font-face {
+    font-family: 'KellySlab';
+    src: url("../fonts/KellySlab-Regular.ttf") format("truetype");
+}
+@font-face {
+    font-family: 'Academyostt';
+    src: url("../fonts/Academyostt.ttf") format("truetype");
+}
+
+.form-signin {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: auto;
+}
+.form-signin .checkbox {
+  font-weight: 400;
+}
+
+.form-signin .form-floating:focus-within {
+  z-index: 2;
+}
+
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.form-signin input[type="password"] {
+  margin-top: -25px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.mpage{
+    min-height: 640px;
+}
+
+.fcard{
+    background-color: #009B95;
+}
+
+.scard{
+    background-color: #1D7471;
+}
+
+.tcard{
+   background-color: #5CCDC9;
+}
+
+.btn-aq{
+    background-color: antiquewhite;
+}
+
+.bs-gr1 {
+    color: #1D7471;
+    text-decoration: none;
+}
+
+.bs-aq{
+    color: antiquewhite;
+}
+.bs-aq:hover{
+    color: whitesmoke;
+}
+
+.bs-aq:focus{
+    color: whitesmoke;
+}
+
+.accordion-button:focus,
+.accordion-button:not(.collapsed){
+    background-color: antiquewhite;
+    color: #0f0f0f;
+}
+
+
+.logo-title {
+
+    font-size: 24px;
+    color: antiquewhite;
+}
+.nav-bar-title {
+
+    font-size: 18px;
+    color: antiquewhite;
+}
+
+.logo-title:hover{
+    color: whitesmoke;
+}
+
+.linear-nav-grad{
+    background: linear-gradient(90deg, #009B95, #5CCDC9);
+}
+
+.bd-placeholder-img {
+    font-size: 1.125rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+}
+
+.word > * {
+    text-decoration: none;
+    border-bottom: 1px dotted;
+    color: #3b444b;
+}
+
+.unimportant_word > * {
+    color: #c4c3d0;
+}
