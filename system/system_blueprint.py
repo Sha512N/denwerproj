@@ -4,7 +4,7 @@ from flask import render_template
 from flask import request
 from sqlalchemy.orm import sessionmaker
 import markdown
-from sqlalchemy import or_
+from sqlalchemy import or_, func
 
 from db.mapper import ENGINE
 from db.mapper import ArchType, ArchDescription
@@ -46,7 +46,6 @@ def index(short_link: str):
 
 @system_blueprint.route('/contextual_search', methods=['GET', 'POST'])
 def search():
-
     form = Search()
 
     if request.method == "GET":
@@ -56,12 +55,15 @@ def search():
     session = Session()
     keywords = [''.join(e for e in word if e.isalnum()) for word in form.word.data.lower().split(" ")]
 
-    keywords_condition = or_(*[ArchDescription.TEXT.ilike('% {} %'.format(keyword)) for keyword in keywords],
-                             *[ArchType.NAME.ilike('% {} %'.format(keyword)) for keyword in keywords],
-                             *[ArchType.NAME.ilike('{} %'.format(keyword)) for keyword in keywords],
-                             *[ArchType.NAME.ilike('% {}'.format(keyword)) for keyword in keywords],
-                             *[ArchDescription.TEXT.ilike('{} %'.format(keyword)) for keyword in keywords],
-                             *[ArchDescription.TEXT.ilike('{} %'.format(keyword)) for keyword in keywords])
+    keywords_condition = or_(*[func.lower(ArchType.NAME).op('regexp')
+                               ('^.*[ !@"\'$#№~`%^&*()";:?/.,><\\|0-9]+' + keyword.lower()
+                                + '[ !@"\'$#№~`%^&*()";:?/.,><\\|0-9]+.*$')
+                               for keyword in keywords],
+                             *[func.lower(ArchDescription.TEXT).op('regexp')
+                               ('^.*[ !@"\'$#№~`%^&*()";:?/.,><\\|0-9]+' + keyword.lower()
+                                + '[ !@"\'$#№~`%^&*()";:?/.,><\\|0-9]+.*$')
+                               for keyword in keywords]
+                             )
 
     found = session.query(ArchType, ArchDescription) \
         .join(ArchDescription, ArchDescription.ARCH_ID == ArchType.ID) \
