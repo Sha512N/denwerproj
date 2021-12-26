@@ -1,8 +1,6 @@
 from flask import Flask, render_template
 
 from db.mapper import POSTGRE_SQL
-from db.mapper import ENGINE, ArchType, ArchDescription
-from sqlalchemy.orm import sessionmaker
 
 
 def create_app():

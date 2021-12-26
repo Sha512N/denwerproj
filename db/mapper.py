@@ -1,9 +1,7 @@
 from sqlalchemy import Column, Integer, String
 from sqlalchemy import Text
 from sqlalchemy import create_engine
-from sqlalchemy.dialects.postgresql import INET
 from sqlalchemy.ext.declarative import declarative_base
-import pymysql
 
 POSTGRE_SQL = 'mysql+pymysql://root@localhost:3306/system_types'
 ENGINE = create_engine(POSTGRE_SQL)
