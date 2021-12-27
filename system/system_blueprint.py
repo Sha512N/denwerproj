@@ -54,39 +54,12 @@ def search():
     keywords = [''.join(e for e in word if e.isalnum() or e == '-') for word in form.word.data.lower().split(" ")]
 
     keywords_condition = or_(*[func.lower(ArchType.NAME).op('regexp')
-                               ('^.*[ !@"\'«»$#№~`%^&*()";:?/.,><\\|]+' + keyword.lower()
-                                + '[ !@"\'«»$#№~`%^&*()";:?/.,><\\|]+.*$')
+                               ('^(.*[ !@"\'«»$#№~`%^&*()";:?/.,><\\|]+){0,1}' + keyword.lower()
+                                + '([ !@"\'«»$#№~`%^&*()";:?/.,><\\|]+.*){0,1}$')
                                for keyword in keywords],
                              *[func.lower(ArchDescription.TEXT).op('regexp')
-                               ('^.*[ !@"\'«»$#№~`%^&*()";:?/.,><\\|]+' + keyword.lower()
-                                + '[ !@"\'«»$#№~`%^&*()";:?/.,><\\|]+.*$')
-                               for keyword in keywords],
-
-                             *[func.lower(ArchType.NAME).op('regexp')
-                               ('^' + keyword.lower()
-                                + '[ !@"\'«»$#№~`%^&*()";:?/.,><\\|]+.*$')
-                               for keyword in keywords],
-                             *[func.lower(ArchDescription.TEXT).op('regexp')
-                               ('^' + keyword.lower()
-                                + '[ !@"\'«»$#№~`%^&*()";:?/.,><\\|]+.*$')
-                               for keyword in keywords],
-
-                             *[func.lower(ArchType.NAME).op('regexp')
-                               ('^.*[ !@"\'«»$#№~`%^&*()";:?/.,><\\|]+' + keyword.lower()
-                                + '$')
-                               for keyword in keywords],
-                             *[func.lower(ArchDescription.TEXT).op('regexp')
-                               ('^.*[ !@"\'«»$#№~`%^&*()";:?/.,><\\|]+' + keyword.lower()
-                                + '$')
-                               for keyword in keywords],
-
-                             *[func.lower(ArchType.NAME).op('regexp')
-                               ('^' + keyword.lower()
-                                + '$')
-                               for keyword in keywords],
-                             *[func.lower(ArchDescription.TEXT).op('regexp')
-                               ('^' + keyword.lower()
-                                + '$')
+                               ('^(.*[ !@"\'«»$#№~`%^&*()";:?/.,><\\|]+){0,1}' + keyword.lower()
+                                + '([ !@"\'«»$#№~`%^&*()";:?/.,><\\|]+.*){0,1}$')
                                for keyword in keywords]
                              )
 
