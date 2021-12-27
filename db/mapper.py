@@ -21,3 +21,6 @@ class ArchDescription(BASE):
     ARCH_ID = Column(Integer)
     TEXT = Column(Text)
     __tablename__ = 'arch_desc'
+
+
+BASE.metadata.create_all(ENGINE, checkfirst=True)

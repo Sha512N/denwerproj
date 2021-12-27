@@ -1,6 +1,6 @@
 from flask import Flask, render_template
 
-from db.mapper import POSTGRE_SQL
+from db.mapper import SQL
 from system.forms import Search
 
 
