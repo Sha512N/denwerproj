@@ -3,8 +3,8 @@ from sqlalchemy import Text
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 
-POSTGRE_SQL = 'mysql+pymysql://root@localhost:3306/system_types'
-ENGINE = create_engine(POSTGRE_SQL)
+SQL = 'mysql+pymysql://root@localhost:3306/system_types'
+ENGINE = create_engine(SQL)
 
 BASE = declarative_base()
 
