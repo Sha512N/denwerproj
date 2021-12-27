@@ -61,6 +61,25 @@ def search():
                                ('^.*[ !@"\'«»$#№~`%^&*()";:?/.,><\\|]+' + keyword.lower()
                                 + '[ !@"\'«»$#№~`%^&*()";:?/.,><\\|]+.*$')
                                for keyword in keywords],
+
+                             *[func.lower(ArchType.NAME).op('regexp')
+                               ('^' + keyword.lower()
+                                + '[ !@"\'«»$#№~`%^&*()";:?/.,><\\|]+.*$')
+                               for keyword in keywords],
+                             *[func.lower(ArchDescription.TEXT).op('regexp')
+                               ('^' + keyword.lower()
+                                + '[ !@"\'«»$#№~`%^&*()";:?/.,><\\|]+.*$')
+                               for keyword in keywords],
+
+                             *[func.lower(ArchType.NAME).op('regexp')
+                               ('^.*[ !@"\'«»$#№~`%^&*()";:?/.,><\\|]+' + keyword.lower()
+                                + '$')
+                               for keyword in keywords],
+                             *[func.lower(ArchDescription.TEXT).op('regexp')
+                               ('^.*[ !@"\'«»$#№~`%^&*()";:?/.,><\\|]+' + keyword.lower()
+                                + '$')
+                               for keyword in keywords],
+
                              *[func.lower(ArchType.NAME).op('regexp')
                                ('^' + keyword.lower()
                                 + '$')
