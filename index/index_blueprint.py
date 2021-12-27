@@ -4,6 +4,7 @@ from sqlalchemy.orm import sessionmaker
 
 from db.mapper import ENGINE
 from db.mapper import ArchType
+from system.forms import Search
 
 index_blueprint = Blueprint('index', __name__)
 
@@ -42,4 +43,5 @@ def index():
         append_childred(tree_element, session, tree_data)
         tree_data['nodes'].append({"outdent": True})
     session.close()
-    return render_template("index.html", tree_data=tree_data)
+    form = Search()
+    return render_template("index.html", tree_data=tree_data, sicForm=form)

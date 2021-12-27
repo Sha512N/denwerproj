@@ -1,6 +1,7 @@
 from flask import Flask, render_template
 
 from db.mapper import POSTGRE_SQL
+from system.forms import Search
 
 
 def create_app():
@@ -14,7 +15,8 @@ def create_app():
     @application.errorhandler(404)
     @application.errorhandler(500)
     def page_not_found(e):
-        return render_template("404.html"), 404
+        form = Search()
+        return render_template("404.html", sicForm=form), 404
 
     application.register_error_handler(404, page_not_found)
     application.register_error_handler(500, page_not_found)

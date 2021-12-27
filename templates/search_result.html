@@ -2,7 +2,7 @@
 
 {% block head %}{{ super() }}{% endblock %}
 
-{% block main_title %}Система вычсистем{% endblock %}
+{% block main_title %}Вычислительные системы{% endblock %}
 
 {% block sub_title %} - поиск{% endblock %}
 
@@ -15,6 +15,11 @@
         <a class="col-2 btn text-dark btn border-dark" href="{{url_for('system.search')}}">Назад</a>
     </div>
     <hr/>
+    <div class="row pb-1">
+        <h2 class="col-10 text-center">Поиск по фразе: {{search}}</h2>
+    </div>
+
+    <hr/>
     {%if results|length == 0%}
     <div class="row pb-2">
         <h2 class="col-10 text-center">Ничего не найдено!</h2>
@@ -26,7 +31,7 @@
     <div class="row pb-1 pt-1">
         <div class="col-2 h4 text-center">№</div>
         <div class="col-3 h4 text-center">Название документа</div>
-        <div class="col-3 h4 text-center">Текст</div>
+        <div class="col-6 h4 text-center">Текст</div>
     </div>
 
     {%for result in results%}
@@ -37,7 +42,7 @@
         <div class="col-3 text-center">
             <a href="{{url_for('system.index', short_link=result['link'] )}}">{{result['name']}}</a>
         </div>
-        <div class="col-3">
+        <div class="col-6">
             <div class="text-dark">{{result['text']|safe}}</div>
         </div>
     </div>

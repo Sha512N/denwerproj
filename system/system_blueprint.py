@@ -38,30 +38,36 @@ def index(short_link: str):
         parent_data = None
 
     session.close()
+    form = Search()
     return render_template("page.html",
                            text=md.convert(data[0].TEXT),
                            name=data[0].NAME,
-                           children=children_data, parent=parent_data)
+                           children=children_data, parent=parent_data, sicForm=form)
 
 
-@system_blueprint.route('/contextual_search', methods=['GET', 'POST'])
+@system_blueprint.route('/contextual_search', methods=['POST'])
 def search():
     form = Search()
 
-    if request.method == "GET":
-        return render_template("search.html", sicForm=form)
-
     Session = sessionmaker(bind=ENGINE)
     session = Session()
-    keywords = [''.join(e for e in word if e.isalnum()) for word in form.word.data.lower().split(" ")]
+    keywords = [''.join(e for e in word if e.isalnum() or e == '-') for word in form.word.data.lower().split(" ")]
 
     keywords_condition = or_(*[func.lower(ArchType.NAME).op('regexp')
-                               ('^.*[ !@"\'$#№~`%^&*()";:?/.,><\\|0-9]+' + keyword.lower()
-                                + '[ !@"\'$#№~`%^&*()";:?/.,><\\|0-9]+.*$')
+                               ('^.*[ !@"\'«»$#№~`%^&*()";:?/.,><\\|]+' + keyword.lower()
+                                + '[ !@"\'«»$#№~`%^&*()";:?/.,><\\|]+.*$')
                                for keyword in keywords],
                              *[func.lower(ArchDescription.TEXT).op('regexp')
-                               ('^.*[ !@"\'$#№~`%^&*()";:?/.,><\\|0-9]+' + keyword.lower()
-                                + '[ !@"\'$#№~`%^&*()";:?/.,><\\|0-9]+.*$')
+                               ('^.*[ !@"\'«»$#№~`%^&*()";:?/.,><\\|]+' + keyword.lower()
+                                + '[ !@"\'«»$#№~`%^&*()";:?/.,><\\|]+.*$')
+                               for keyword in keywords],
+                             *[func.lower(ArchType.NAME).op('regexp')
+                               ('^' + keyword.lower()
+                                + '$')
+                               for keyword in keywords],
+                             *[func.lower(ArchDescription.TEXT).op('regexp')
+                               ('^' + keyword.lower()
+                                + '$')
                                for keyword in keywords]
                              )
 
@@ -71,8 +77,10 @@ def search():
 
     results = [{'name': found_element.NAME,
                 "link": found_element.SHORT_LINK,
-                "text": md.convert(found_element.TEXT[0:100] + "...")} for found_element in found]
+                "text": md.convert(found_element.TEXT[0:200] + "...")} for found_element in found]
 
     session.close()
+    data = form.word.data
+    form.word.data = ""
     return render_template("search_result.html",
-                           results=results)
+                           results=results, search=data, sicForm=form)
